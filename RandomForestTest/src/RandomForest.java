@@ -27,7 +27,7 @@ public class RandomForest
 			
 			rf.buildClassifier(trainData);
 			
-			/* Classify Users */
+			/* Classify Users . A comment has been added*/
 			unknown     = new DataSource("/home/hduser/fileTest1.arff");
 			unknownData = unknown.getDataSet();
 			unknownData.setClassIndex(unknownData.numAttributes()-1);
