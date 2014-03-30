@@ -20,10 +20,10 @@ public class RandomForest
 			String[] opt = Utils.splitOptions("-N 1 -D");
 			
 			/*Training */
-			weka.classifiers.mi.MISVM rf = new weka.classifiers.mi.MISVM();
+			weka.classifiers.functions.LibSVM rf = new weka.classifiers.functions.LibSVM();
 		
-			rf.setOptions(opt);
-			System.out.println(rf.getFilterType());
+			//rf.setOptions(opt);
+			//System.out.println(rf.getFilterType());
 			
 			rf.buildClassifier(trainData);
 			
