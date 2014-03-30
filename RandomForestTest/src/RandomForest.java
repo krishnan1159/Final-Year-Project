@@ -3,6 +3,8 @@ import weka.core.Instances;
 import weka.core.Utils;
 import weka.core.converters.ConverterUtils.DataSink;
 import weka.core.converters.ConverterUtils.DataSource;
+import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.StringToNominal;
 public class RandomForest 
 {
 	/* Read the Data in ARFF format */
@@ -12,9 +14,15 @@ public class RandomForest
 	{
 		try {
 			/* Loading the Data */
-			train       = new DataSource("/home/hduser/file.arff");
+			train       = new DataSource("/home/hduser/emtest.arff");
 			trainData   = train.getDataSet();
 			trainData.setClassIndex(trainData.numAttributes()-1);
+			
+			StringToNominal stm = new StringToNominal();
+			stm.setAttributeRange("first");
+			stm.setInputFormat(trainData);
+			
+			Instances afterFilter = Filter.useFilter(trainData, stm);
 			
 			/* Set Option for Random Forest Algorithm */
 			String[] opt = Utils.splitOptions("-N 1 -D");
@@ -25,7 +33,7 @@ public class RandomForest
 			//rf.setOptions(opt);
 			//System.out.println(rf.getFilterType());
 			
-			rf.buildClassifier(trainData);
+			rf.buildClassifier(afterFilter);
 			
 			/* Classify Users . A comment has been added*/
 			unknown     = new DataSource("/home/hduser/fileTest1.arff");
